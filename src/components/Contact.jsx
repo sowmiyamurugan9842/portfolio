@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import SectionHeader from './common/SectionHeader';
-import { Mail, Linkedin, Github, LeetCodeIcon, ArrowUpRight, Copy, Check } from './common/Icons';
+import { Mail, Linkedin, Github, LeetCodeIcon, ArrowUpRight, Copy, Check, Download } from './common/Icons';
 import { PERSONAL_INFO, SOCIAL_LINKS } from '../data/personalInfo';
 
 export default function Contact({ showToast }) {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [formStatus, setFormStatus] = useState(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const handleCopyEmail = () => {
@@ -15,36 +13,6 @@ export default function Contact({ showToast }) {
       showToast('Email Copied', SOCIAL_LINKS.email.address);
     }
     setTimeout(() => setCopiedEmail(false), 2000);
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    if (!formData.name.trim()) {
-      setFormStatus({ type: 'error', message: 'Please provide your name.' });
-      return;
-    }
-    if (!formData.email.trim() || !formData.email.includes('@')) {
-      setFormStatus({ type: 'error', message: 'Please provide a valid email address.' });
-      return;
-    }
-    if (!formData.message.trim() || formData.message.length < 5) {
-      setFormStatus({ type: 'error', message: 'Please write a message (at least 5 characters).' });
-      return;
-    }
-
-    setFormStatus({
-      type: 'success',
-      message: `Thank you, ${formData.name}! Your message has been validated on the frontend. You can also send this directly via your email client below.`
-    });
-  };
-
-  const handleMailtoFallback = () => {
-    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name || 'Visitor'}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    window.location.href = `mailto:${SOCIAL_LINKS.email.address}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -154,81 +122,58 @@ export default function Contact({ showToast }) {
             </div>
           </div>
 
-          {/* Right Column: Contact Form */}
+          {/* Right Column: Let's Connect Card */}
           <div className="contact-form-panel">
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
-              Send a Message
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+              Let's Connect
             </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
-              Client-side validated form.
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+              Interested in software engineering opportunities, backend development, or collaborating on meaningful projects?
             </p>
 
-            {formStatus && (
-              <div className={`form-alert ${formStatus.type}`}>
-                {formStatus.message}
-              </div>
-            )}
+            {/* Action Buttons */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.75rem' }}>
+              <a
+                href="/Sowmiya_M_Resume.pdf"
+                download="Sowmiya_M_Resume.pdf"
+                className="btn btn-primary"
+                style={{ width: '100%', justifyContent: 'center' }}
+                title="Download Sowmiya M Resume"
+              >
+                <Download size={16} />
+                <span>Download Resume</span>
+              </a>
 
-            <form onSubmit={handleFormSubmit}>
-              <div className="form-field">
-                <label className="form-field-label" htmlFor="name-input">
-                  Name
-                </label>
-                <input
-                  id="name-input"
-                  type="text"
-                  className="form-field-input"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                />
-              </div>
+              <a
+                href={`mailto:${SOCIAL_LINKS.email.address}`}
+                className="btn btn-secondary"
+                style={{ width: '100%', justifyContent: 'center' }}
+                title="Email Sowmiya M"
+              >
+                <Mail size={16} color="#0F294A" />
+                <span>Email Me</span>
+              </a>
+            </div>
 
-              <div className="form-field">
-                <label className="form-field-label" htmlFor="email-input">
-                  Email
-                </label>
-                <input
-                  id="email-input"
-                  type="email"
-                  className="form-field-input"
-                  placeholder="your.email@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div className="form-field">
-                <label className="form-field-label" htmlFor="message-input">
-                  Message
-                </label>
-                <textarea
-                  id="message-input"
-                  className="form-field-textarea"
-                  placeholder="Write your message here..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                <button type="submit" className="btn btn-primary" style={{ flex: '1 1 auto' }}>
-                  Send Message
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={handleMailtoFallback}
-                  title="Open Default Mail App"
-                >
-                  <Mail size={15} />
-                  <span>Mail App</span>
-                </button>
-              </div>
-            </form>
+            {/* Open to Opportunities Section */}
+            <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1.25rem' }}>
+              <h4 style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent-navy)', marginBottom: '0.75rem' }}>
+                Open to opportunities
+              </h4>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                {[
+                  'Software Engineering',
+                  'Backend Development',
+                  'Internship Opportunities',
+                  'Collaborative Projects'
+                ].map((item, idx) => (
+                  <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                    <span style={{ color: '#2563EB', fontWeight: 'bold' }}>•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

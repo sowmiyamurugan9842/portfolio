@@ -1,5 +1,4 @@
 import React from 'react';
-import { Github, ArrowUpRight } from './common/Icons';
 
 export default function ProjectCard({ project, onLinkClick }) {
   return (
@@ -26,19 +25,6 @@ export default function ProjectCard({ project, onLinkClick }) {
             </li>
           ))}
         </ul>
-      </div>
-
-      {/* Action Button */}
-      <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)' }}>
-        <button
-          className="btn btn-secondary btn-sm"
-          style={{ width: '100%' }}
-          onClick={() => onLinkClick(project.githubUrl, `${project.title} GitHub`)}
-        >
-          <Github size={14} />
-          <span>GitHub</span>
-          <ArrowUpRight size={13} />
-        </button>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Github, ArrowUpRight, Shield, Database, Server, Terminal } from './common/Icons';
 import { FEATURED_PROJECT } from '../data/projects';
 
 export default function FeaturedProject({ onLinkClick }) {
@@ -18,18 +17,6 @@ export default function FeaturedProject({ onLinkClick }) {
             {tech}
           </span>
         ))}
-      </div>
-
-      {/* Button: GitHub Repository */}
-      <div>
-        <button
-          className="btn btn-primary"
-          onClick={() => onLinkClick(FEATURED_PROJECT.githubUrl, 'Healthcare GitHub')}
-        >
-          <Github size={16} />
-          <span>GitHub Repository</span>
-          <ArrowUpRight size={14} />
-        </button>
       </div>
 
       {/* Details Grid: Key Contributions & Architecture Flow */}
